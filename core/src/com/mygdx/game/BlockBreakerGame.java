@@ -1,6 +1,6 @@
 package com.mygdx.game;
 
-import java.util.ArrayList;
+import java.util.*;
 
 
 import com.badlogic.gdx.ApplicationAdapter;
@@ -24,6 +24,18 @@ public class BlockBreakerGame extends ApplicationAdapter {
 	private int vidas;
 	private int puntaje;
 	private int nivel;
+	private ArrayList<Modificadores> modifiers = new ArrayList<>();
+	private ArrayList<PingBall> ballList = new ArrayList<>();
+
+	public int getVidas() {
+		return this.vidas;
+	}
+	public void setVidas(int vidas) {
+		this.vidas = vidas;
+	}
+	public List<PingBall> getBallList() {
+		return ballList;
+	}
     
 		@Override
 		public void create () {	
@@ -103,11 +115,32 @@ public class BlockBreakerGame extends ApplicationAdapter {
 	        for (int i = 0; i < blocks.size(); i++) {
 	            Block b = blocks.get(i);
 	            if (b.destroyed) {
+
+					Modificadores modifier = b.dropModifier();
+					if (modifier != null) {
+						modifiers.add(modifier);
+					}
 	            	puntaje++;
 	                blocks.remove(b);
 	                i--; //para no saltarse 1 tras eliminar del arraylist
 	            }
 	        }
+
+
+			// Actualizar la posición de los modificadores y verificar colisiones con el padd.
+			Iterator<Modificadores> iterator = modifiers.iterator();
+			while (iterator.hasNext()) {
+				Modificadores modifier = iterator.next();
+				modifier.update();
+
+				// Si colisiona con el padd
+				if (modifier.collidesWith(pad)) {
+					modifier.apply();
+					iterator.remove(); // Eliminar el modificador después de aplicarlo.
+				}
+
+				modifier.draw(shape);
+			}
 	        
 	        ball.checkCollision(pad);
 	        ball.draw(shape);
@@ -115,7 +148,8 @@ public class BlockBreakerGame extends ApplicationAdapter {
 	        shape.end();
 	        dibujaTextos();
 		}
-		
+
+
 		@Override
 		public void dispose () {
 

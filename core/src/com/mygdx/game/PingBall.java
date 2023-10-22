@@ -23,7 +23,6 @@ public class PingBall {
 	        this.ySpeed = ySpeed;
 	        estaQuieto = iniciaQuieto;
 	    }
-	    
 	    public boolean estaQuieto() {
 	    	return estaQuieto;
 	    }
@@ -35,12 +34,14 @@ public class PingBall {
 	        this.y = y;
 	    }
 	    public int getY() {return y;}
-	    
+		public Object getX() {return x;}
+		public int getSize() {return size;}
+		public int getXSpeed() {return xSpeed;}
+		public int getYSpeed() {return ySpeed;}
 	    public void draw(ShapeRenderer shape){
 	        shape.setColor(color);
 	        shape.circle(x, y, size);
 	    }
-	    
 	    public void update() {
 	    	if (estaQuieto) return;
 	        x += xSpeed;
@@ -52,7 +53,6 @@ public class PingBall {
 	            ySpeed = -ySpeed;
 	        }
 	    }
-	    
 	    public void checkCollision(Paddle paddle) {
 	        if(collidesWith(paddle)){
 	            color = Color.GREEN;
@@ -68,9 +68,9 @@ public class PingBall {
 	        boolean intersectaY = (pp.getY() + pp.getHeight() >= y-size) && (pp.getY() <= y+size);		
 	    	return intersectaX && intersectaY;
 	    }
-	    
 	    public void checkCollision(Block block) {
 	        if(collidesWith(block)){
+				color = Color.BLUE;
 	            ySpeed = - ySpeed;
 	            block.destroyed = true;
 	        }
@@ -81,5 +81,6 @@ public class PingBall {
 	        boolean intersectaY = (bb.y + bb.height >= y-size) && (bb.y <= y+size);		
 	    	return intersectaX && intersectaY;
 	    }
-	    
-	}
+
+
+}
