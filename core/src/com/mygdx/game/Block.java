@@ -6,24 +6,19 @@ import java.util.Random;
 
 import com.badlogic.gdx.graphics.Color;
 
-public class Block {
-    int x,y,width,height;
+public class Block extends objectos {
     Color cc;
     boolean destroyed;
-    
     public Block(int x, int y, int width, int height) {
-        this.x = x;
-        this.y = y;
-        this.width = width;
-        this.height = height;
+        super(x, y, width, height);
         destroyed = false;
         Random r = new Random(x+y);
-        
-       cc = new Color(0.1f+r.nextFloat(), r.nextFloat(), r.nextFloat(), 10);
-  
+
+        cc = new Color(0.1f+r.nextFloat(), r.nextFloat(), r.nextFloat(), 10);
     }
+
     public void draw(ShapeRenderer shape){
     	shape.setColor(cc);
-        shape.rect(x, y, width, height);
+        shape.rect(getX(), getY(), getWidth(), getHeight());
     }
 }
