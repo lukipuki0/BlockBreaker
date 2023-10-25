@@ -5,11 +5,10 @@ import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 
-public class Paddle extends objectos {
+public class Paddle extends ObjetosJuego {
     public Paddle(int x, int y, int width, int height) {
         super(x, y, width, height);
     }
-
 
     @Override
 	public void draw(ShapeRenderer shape){

@@ -1,14 +1,15 @@
 package com.mygdx.game;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 
-public abstract class objectos {
+public abstract class ObjetosJuego {
     protected   int x, y, width, height;
 
-    public objectos(int x, int y, int width, int height) {
+    public ObjetosJuego(int x, int y, int width, int height) {
         this.x = x;
         this.y = y;
         this.width = width;
         this.height = height;
+
     }
 
     public abstract void draw(ShapeRenderer shape);

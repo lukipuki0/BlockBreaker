@@ -8,7 +8,7 @@ import com.badlogic.gdx.graphics.Color;
 import com.mygdx.game.ModifiersList.ExtraBall;
 import com.mygdx.game.ModifiersList.ExtraLife;
 
-public class Block extends objectos {
+public class Block extends ObjetosJuego {
     Color cc;
     boolean destroyed;
     public Block(int x, int y, int width, int height) {
