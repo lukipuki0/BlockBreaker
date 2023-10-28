@@ -5,6 +5,7 @@ public abstract class Modificadores {
     protected int x, y, width, height;  // Posición del modificador en pantalla y Dimensiones del modificador.
     protected int speedY; // Velocidad vertical del modificador (caída).
     protected BlockBreakerGame game;
+    protected boolean isBuff;
     public Modificadores(BlockBreakerGame game,int x, int y) {
         this.game = game;
         this.x = x;
@@ -12,7 +13,20 @@ public abstract class Modificadores {
         this.width = 20;
         this.height = 20;
         this.speedY = 5;// Velocidad de caída.
+        this.isBuff = true;
 
+    }
+    public int getX() {
+        return this.x;
+    }
+    public int getY() {
+        return this.y;
+    }
+    public int getWidth() {
+    	return this.width;
+    }
+    public int getHeight() {
+    	return this.height;
     }
 
     // Método para actualizar la posición del modificador mientras cae.

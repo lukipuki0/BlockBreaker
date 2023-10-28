@@ -33,6 +33,11 @@ public class BlockBreakerGame extends ApplicationAdapter {
 	public void setVidas(int vidas) {
 		this.vidas = vidas;
 	}
+
+	public Paddle getPad() {
+		return pad;
+	}
+
 	public ArrayList<PingBall> getBallList() {
 		return ballList;
 	}
@@ -143,7 +148,8 @@ public class BlockBreakerGame extends ApplicationAdapter {
 				modifier.update();
 
 				// Si colisiona con el padd
-				if (modifier.collidesWith(pad)) {
+				if (modifier.collidesWith(pad) && modifier.isBuff) {
+
 					modifier.apply();
 					iterator.remove(); // Eliminar el modificador después de aplicarlo.
 				}
