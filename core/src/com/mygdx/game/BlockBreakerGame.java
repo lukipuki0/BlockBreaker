@@ -19,28 +19,20 @@ public class BlockBreakerGame extends ApplicationAdapter {
 	private SpriteBatch batch;	   
 	private BitmapFont font;
 	private ShapeRenderer shape;
-	private PingBall ball;
-	private Paddle pad;
-	private ArrayList<Block> blocks = new ArrayList<>();
+	private ObjetosJuego ball;
+	private ObjetosJuego pad;
+	private ArrayList<ObjetosJuego> blocks = new ArrayList<>();
 	private int vidas;
 	private int puntaje;
 	private int nivel;
 	private ArrayList<Modificadores> modifiers = new ArrayList<>();
 	private ArrayList ballList = new ArrayList<>(1);
-	public int getVidas() {
-		return this.vidas;
-	}
-	public void setVidas(int vidas) {
-		this.vidas = vidas;
-	}
+	public int getVidas() {return this.vidas;}
+	public void setVidas(int vidas) {this.vidas = vidas;}
 
-	public Paddle getPad() {
-		return pad;
-	}
+	public Paddle getPad() {return (Paddle) pad;}
 
-	public ArrayList<PingBall> getBallList() {
-		return ballList;
-	}
+	public ArrayList<PingBall> getBallList() {return ballList;}
 	public void setBallList(ArrayList ballList) {this.ballList = ballList;}
     
 		@Override
@@ -55,7 +47,7 @@ public class BlockBreakerGame extends ApplicationAdapter {
 			
 		    shape = new ShapeRenderer();
 		    ball = new PingBall(Gdx.graphics.getWidth()/2-10, 41, 10, 5, 7, true);
-		    pad = new Paddle(Gdx.graphics.getWidth()/2-50,40,100,10,5);
+		    pad = new Paddle(Gdx.graphics.getWidth()/2-50,40,100,10,10);
 		    vidas = 3;
 		    puntaje = 0;
 
@@ -92,10 +84,10 @@ public class BlockBreakerGame extends ApplicationAdapter {
 	        pad.draw(shape);
 
 	        // monitorear inicio del juego
-	        if (ball.estaQuieto()) {
-	        	ball.setXY(pad.getX()+pad.getWidth()/2-5, pad.getY()+pad.getHeight()+11);
-	        	if (Gdx.input.isKeyPressed(Input.Keys.SPACE)) ball.setEstaQuieto(false);
-	        }else ball.update();
+	        if (((PingBall)ball).estaQuieto()) {
+				((PingBall)ball).setXY(pad.getX()+pad.getWidth()/2-5, pad.getY()+pad.getHeight()+11);
+	        	if (Gdx.input.isKeyPressed(Input.Keys.SPACE)) ((PingBall)ball).setEstaQuieto(false);
+	        }else ((PingBall)ball).update();
 
 	        //verificar si se fue la bola x abajo y no hay más en pantalla
 	        if (ballList.size() <= 0 && ball.getY() < 0) {
@@ -103,7 +95,7 @@ public class BlockBreakerGame extends ApplicationAdapter {
 	        	//nivel = 1;
 	        	ball = new PingBall(pad.getX()+pad.getWidth()/2-5, pad.getY()+pad.getHeight()+11, 10, 5, 7, true);
 	        }
-			pad.mover();  // Asegúrate de llamar al método mover.
+			((Paddle)pad).mover();  // Asegúrate de llamar al método mover.
 			pad.draw(shape);
 	        // verificar game over
 	        if (vidas<=0) {
@@ -120,16 +112,16 @@ public class BlockBreakerGame extends ApplicationAdapter {
 	        }
 
 	        //dibujar bloques
-	        for (Block b : blocks) {
+	        for (ObjetosJuego b : blocks) {
 	            b.draw(shape);
-	            ball.checkCollision(b);
+				((PingBall)ball).checkCollision((Block)b);
 	        }
 	        // actualizar estado de los bloques 
 	        for (int i = 0; i < blocks.size(); i++) {
-	            Block b = blocks.get(i);
-	            if (b.destroyed) {
+	            ObjetosJuego b = blocks.get(i);
+	            if (((Block)b).destroyed) {
 
-					Modificadores modifier = b.dropModifier();
+					Modificadores modifier = ((Block)b).dropModifier();
 					if (modifier != null) {
 						modifiers.add(modifier);
 					}
@@ -148,13 +140,13 @@ public class BlockBreakerGame extends ApplicationAdapter {
 				modifier.update();
 
 				// Si colisiona con el padd
-				if (modifier.collidesWith(pad) && modifier.isBuff) {
+				if (modifier.collidesWith((Paddle)pad) && modifier.isBuff) {
 
 					modifier.apply();
 					iterator.remove(); // Eliminar el modificador después de aplicarlo.
 				} else if (modifier.getY() < 0 && modifier.isBuff == false) {
 
-					if(!modifier.collidesWith(pad)){
+					if(!modifier.collidesWith((Paddle)pad)){
 						modifier.apply();
 						iterator.remove(); // Eliminar el modificador después de aplicarlo.
 					}
@@ -163,8 +155,8 @@ public class BlockBreakerGame extends ApplicationAdapter {
 
 				modifier.draw(shape);
 			}
-	        
-	        ball.checkCollision(pad);
+
+			((PingBall)ball).checkCollision((Paddle)pad);
 	        ball.draw(shape);
 	        
 	        shape.end();

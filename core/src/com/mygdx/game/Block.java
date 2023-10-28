@@ -29,10 +29,10 @@ public class Block extends ObjetosJuego {
     }
 
     public Modificadores dropModifier() {
-        // Usamos una probabilidad del 10% de soltar un modificador.
+        // Usamos una probabilidad del X% de soltar un modificador.
         if (Math.random() < 1) {
 
-            switch (2) {
+            switch ((int) (Math.random() * 4)) {
                 case 0:
                     return new ExtraLife(game,x + width / 2, y);  // Soltar desde el centro del bloque.
                 case 1:

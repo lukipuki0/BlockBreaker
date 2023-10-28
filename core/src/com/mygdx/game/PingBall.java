@@ -61,10 +61,10 @@ public class PingBall extends ObjetosJuego implements Movimiento {
 	        if(collidesWith(paddle)){
 	            color = Color.GREEN;
 	            ySpeed = -ySpeed;
-	        }
-	        else{
-	            color = Color.WHITE;
-	        }
+	        }else{
+				color = Color.WHITE;
+			}
+
 	    }
 	    private boolean collidesWith(Paddle pp) {
 
@@ -74,10 +74,13 @@ public class PingBall extends ObjetosJuego implements Movimiento {
 	    }
 	    public void checkCollision(Block block) {
 	        if(collidesWith(block)){
-				color = Color.BLUE;
+
+				color = Color.RED;
 	            ySpeed = - ySpeed;
 	            block.destroyed = true;
-	        }
+	        }else{
+				color = Color.WHITE;
+			}
 	    }
 	    private boolean collidesWith(Block bb) {
 
