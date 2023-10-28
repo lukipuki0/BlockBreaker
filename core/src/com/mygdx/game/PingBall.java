@@ -4,7 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 
-public class PingBall extends ObjetosJuego {
+public class PingBall extends ObjetosJuego implements Movimiento {
 
 	    private int xSpeed, ySpeed, size;
 	    private Color color = Color.WHITE;
@@ -17,6 +17,13 @@ public class PingBall extends ObjetosJuego {
 	        this.ySpeed = ySpeed;
 	        estaQuieto = iniciaQuieto;
 	    }
+		@Override
+		public void mover() {
+			// Aquí, añade la lógica para mover el PingBall.
+			// Como un ejemplo básico:
+			this.x += this.xSpeed;
+			this.y += this.ySpeed;
+		}
 	    public boolean estaQuieto() {
 	    	return estaQuieto;
 	    }
