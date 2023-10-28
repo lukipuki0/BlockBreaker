@@ -120,7 +120,7 @@ public class BlockBreakerGame extends ApplicationAdapter {
 	        }
 
 	        //dibujar bloques
-	        for (Block b : blocks) {        	
+	        for (Block b : blocks) {
 	            b.draw(shape);
 	            ball.checkCollision(b);
 	        }
@@ -152,6 +152,13 @@ public class BlockBreakerGame extends ApplicationAdapter {
 
 					modifier.apply();
 					iterator.remove(); // Eliminar el modificador después de aplicarlo.
+				} else if (modifier.getY() < 0 && modifier.isBuff == false) {
+
+					if(!modifier.collidesWith(pad)){
+						modifier.apply();
+						iterator.remove(); // Eliminar el modificador después de aplicarlo.
+					}
+
 				}
 
 				modifier.draw(shape);
