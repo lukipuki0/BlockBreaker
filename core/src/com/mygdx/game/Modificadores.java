@@ -1,7 +1,7 @@
 package com.mygdx.game;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 
-public abstract class Modificadores {
+public abstract class Modificadores implements Movimiento {
     protected int x, y, width, height;  // Posición del modificador en pantalla y Dimensiones del modificador.
     protected int speedY; // Velocidad vertical del modificador (caída).
     protected BlockBreakerGame game;
@@ -30,7 +30,7 @@ public abstract class Modificadores {
     }
 
     // Método para actualizar la posición del modificador mientras cae.
-    public void update() {
+    public void mover() {
         y -= speedY;
     }
 

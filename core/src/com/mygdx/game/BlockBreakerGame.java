@@ -135,7 +135,7 @@ public class BlockBreakerGame extends ApplicationAdapter {
 			Iterator<Modificadores> iterator = modifiers.iterator();
 			while (iterator.hasNext()) {
 				Modificadores modifier = iterator.next();
-				modifier.update();
+				modifier.mover();
 
 				if (modifier.collidesWith((Paddle)pad)) {
 					// Si colisiona con el padd
