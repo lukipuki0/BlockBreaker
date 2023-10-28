@@ -131,30 +131,30 @@ public class BlockBreakerGame extends ApplicationAdapter {
 	            }
 	        }
 
-			
-
 			// Actualizar la posición de los modificadores y verificar colisiones con el padd.
 			Iterator<Modificadores> iterator = modifiers.iterator();
 			while (iterator.hasNext()) {
 				Modificadores modifier = iterator.next();
 				modifier.update();
 
-				// Si colisiona con el padd
-				if (modifier.collidesWith((Paddle)pad) && modifier.isBuff) {
-
-					modifier.apply();
-					iterator.remove(); // Eliminar el modificador después de aplicarlo.
-				} else if (modifier.getY() < 0 && modifier.isBuff == false) {
-
-					if(!modifier.collidesWith((Paddle)pad)){
-						modifier.apply();
-						iterator.remove(); // Eliminar el modificador después de aplicarlo.
+				if (modifier.collidesWith((Paddle)pad)) {
+					// Si colisiona con el padd
+					if (modifier.isBuff) {
+						modifier.apply();  // Aplica solo si es un buff.
 					}
-
+					iterator.remove(); // Eliminar el modificador después de aplicarlo o de recogerlo.
+				} else if (modifier.getY() < 0) {
+					// Si está debajo de la pantalla y no ha colisionado con el padd
+					if (!modifier.isBuff) {
+						modifier.apply();  // Aplica solo si es un debuff.
+					}
+					iterator.remove(); // Eliminar el modificador después de aplicarlo.
+				} else {
+					// Si no ha colisionado y no está debajo de la pantalla, dibujar el modificador.
+					modifier.draw(shape);
 				}
-
-				modifier.draw(shape);
 			}
+
 
 			((PingBall)ball).checkCollision((Paddle)pad);
 	        ball.draw(shape);

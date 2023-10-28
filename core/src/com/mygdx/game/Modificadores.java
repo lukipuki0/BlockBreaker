@@ -43,10 +43,10 @@ public abstract class Modificadores {
 
     // Método para detectar colisiones con el padd.
     public boolean collidesWith(Paddle paddle) {
-        if(x > paddle.getX() && x < paddle.getX() + paddle.getWidth() &&
-                y > paddle.getY() && y < paddle.getY() + paddle.getHeight()) {
-            return true;
-        }
-        return false;
+        return x < paddle.getX() + paddle.getWidth() &&
+                x + width > paddle.getX() &&
+                y < paddle.getY() + paddle.getHeight() &&
+                y + height > paddle.getY();
     }
+
 }
