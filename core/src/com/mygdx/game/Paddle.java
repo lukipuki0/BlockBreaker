@@ -5,23 +5,34 @@ import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 
-public class Paddle extends ObjetosJuego {
-    public Paddle(int x, int y, int width, int height) {
+public class Paddle extends ObjetosJuego implements Movimiento {
+    private int xSpeed;
+
+    public Paddle(int x, int y, int width, int height, int xSpeed) {
         super(x, y, width, height);
+        this.xSpeed = xSpeed;
     }
 
     @Override
-	public void draw(ShapeRenderer shape){
+    public void draw(ShapeRenderer shape) {
         shape.setColor(Color.BLUE);
-        int x2 = x; //= Gdx.input.getX();
-        if (Gdx.input.isKeyPressed(Input.Keys.LEFT)) x2 =x-15;
-        if (Gdx.input.isKeyPressed(Input.Keys.RIGHT)) x2=x+15;
-       // y = Gdx.graphics.getHeight() - Gdx.input.getY();
-        if (x2 > 0 && x2+width < Gdx.graphics.getWidth()) {
-            x = x2;
-        }
         shape.rect(getX(), getY(), getWidth(), getHeight());
     }
 
+    @Override
+    public void mover() {
+        if (Gdx.input.isKeyPressed(Input.Keys.LEFT)) {
+            x -= xSpeed;
+        }
+        if (Gdx.input.isKeyPressed(Input.Keys.RIGHT)) {
+            x += xSpeed;
+        }
 
+        // Asegurarse de que el paddle no salga de la pantalla
+        if (x < 0) {
+            x = 0;
+        } else if (x + width > Gdx.graphics.getWidth()) {
+            x = Gdx.graphics.getWidth() - width;
+        }
+    }
 }

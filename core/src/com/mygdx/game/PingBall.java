@@ -48,6 +48,8 @@ public class PingBall extends ObjetosJuego {
 	            ySpeed = -ySpeed;
 	        }
 	    }
+
+
 	    public void checkCollision(Paddle paddle) {
 	        if(collidesWith(paddle)){
 	            color = Color.GREEN;
