@@ -11,9 +11,11 @@ import com.mygdx.game.ModifiersList.ExtraLife;
 public class Block extends ObjetosJuego {
     Color cc;
     boolean destroyed;
-    public Block(int x, int y, int width, int height) {
+    BlockBreakerGame game;
+    public Block(BlockBreakerGame game,int x, int y, int width, int height) {
         super(x, y, width, height);
         destroyed = false;
+        this.game = game;
         Random r = new Random(x+y);
 
         cc = new Color(0.1f+r.nextFloat(), r.nextFloat(), r.nextFloat(), 10);
@@ -29,9 +31,9 @@ public class Block extends ObjetosJuego {
         if (Math.random() < 1) {
             switch ((int) (Math.random() * 2)) {
                 case 0:
-                    return new ExtraLife(x + width / 2, y);  // Soltar desde el centro del bloque.
+                    return new ExtraLife(game,x + width / 2, y);  // Soltar desde el centro del bloque.
                 case 1:
-                    return new ExtraBall(x + width / 2, y);  // Soltar desde el centro del bloque.
+                    return new ExtraBall(game,x + width / 2, y);  // Soltar desde el centro del bloque.
             }
 
         }

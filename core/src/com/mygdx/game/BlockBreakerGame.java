@@ -11,6 +11,7 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.badlogic.gdx.graphics.Color;
 
 
 public class BlockBreakerGame extends ApplicationAdapter {
@@ -25,17 +26,17 @@ public class BlockBreakerGame extends ApplicationAdapter {
 	private int puntaje;
 	private int nivel;
 	private ArrayList<Modificadores> modifiers = new ArrayList<>();
-	private ArrayList<PingBall> ballList = new ArrayList<>();
-
+	private ArrayList ballList = new ArrayList<>(1);
 	public int getVidas() {
 		return this.vidas;
 	}
 	public void setVidas(int vidas) {
 		this.vidas = vidas;
 	}
-	public List<PingBall> getBallList() {
+	public ArrayList<PingBall> getBallList() {
 		return ballList;
 	}
+	public void setBallList(ArrayList ballList) {this.ballList = ballList;}
     
 		@Override
 		public void create () {	
@@ -51,7 +52,8 @@ public class BlockBreakerGame extends ApplicationAdapter {
 		    ball = new PingBall(Gdx.graphics.getWidth()/2-10, 41, 10, 5, 7, true);
 		    pad = new Paddle(Gdx.graphics.getWidth()/2-50,40,100,10);
 		    vidas = 3;
-		    puntaje = 0;    
+		    puntaje = 0;
+
 		}
 		public void crearBloques(int filas) {
 			blocks.clear();
@@ -61,7 +63,7 @@ public class BlockBreakerGame extends ApplicationAdapter {
 		    for (int cont = 0; cont<filas; cont++ ) {
 		    	y -= blockHeight+10;
 		    	for (int x = 5; x < Gdx.graphics.getWidth(); x += blockWidth + 10) {
-		            blocks.add(new Block(x, y, blockWidth, blockHeight));
+		            blocks.add(new Block(this,x, y, blockWidth, blockHeight));
 		        }
 		    }
 		}
@@ -79,20 +81,24 @@ public class BlockBreakerGame extends ApplicationAdapter {
 		
 		@Override
 		public void render () {
+
 			Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT); 		
 	        shape.begin(ShapeRenderer.ShapeType.Filled);
 	        pad.draw(shape);
+
 	        // monitorear inicio del juego
 	        if (ball.estaQuieto()) {
 	        	ball.setXY(pad.getX()+pad.getWidth()/2-5, pad.getY()+pad.getHeight()+11);
 	        	if (Gdx.input.isKeyPressed(Input.Keys.SPACE)) ball.setEstaQuieto(false);
 	        }else ball.update();
-	        //verificar si se fue la bola x abajo
-	        if (ball.getY()<0) {
+
+	        //verificar si se fue la bola x abajo y no hay más en pantalla
+	        if (ballList.size() <= 0 && ball.getY() < 0) {
 	        	vidas--;
 	        	//nivel = 1;
 	        	ball = new PingBall(pad.getX()+pad.getWidth()/2-5, pad.getY()+pad.getHeight()+11, 10, 5, 7, true);
 	        }
+
 	        // verificar game over
 	        if (vidas<=0) {
 	        	vidas = 3;
@@ -126,6 +132,7 @@ public class BlockBreakerGame extends ApplicationAdapter {
 	            }
 	        }
 
+			
 
 			// Actualizar la posición de los modificadores y verificar colisiones con el padd.
 			Iterator<Modificadores> iterator = modifiers.iterator();

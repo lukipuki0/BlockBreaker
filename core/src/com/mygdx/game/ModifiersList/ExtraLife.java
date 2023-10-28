@@ -2,13 +2,14 @@ package com.mygdx.game.ModifiersList;
 
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.mygdx.game.BlockBreakerGame;
 import com.mygdx.game.Modificadores;
 
 public class ExtraLife extends Modificadores {
 
 
-    public ExtraLife(int x, int y) {
-        super(x, y);
+    public ExtraLife(BlockBreakerGame game, int x, int y) {
+        super(game,x, y);
     }
 
     @Override
@@ -19,7 +20,7 @@ public class ExtraLife extends Modificadores {
 
     @Override
     public void apply() {
-
+        game.setVidas(game.getVidas() + 1);
     }
 
 

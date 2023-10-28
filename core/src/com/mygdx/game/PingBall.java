@@ -6,13 +6,13 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 
 public class PingBall extends ObjetosJuego {
 
-	    private int xSpeed;
-	    private int ySpeed;
+	    private int xSpeed, ySpeed, size;
 	    private Color color = Color.WHITE;
 	    private boolean estaQuieto;
 	    
 	    public PingBall(int x, int y, int size, int xSpeed, int ySpeed, boolean iniciaQuieto) {
 	        super(x, y, size, size);
+			this.size = size;
 	        this.xSpeed = xSpeed;
 	        this.ySpeed = ySpeed;
 	        estaQuieto = iniciaQuieto;
@@ -29,6 +29,7 @@ public class PingBall extends ObjetosJuego {
 	    }
 	    public int getY() {return y;}
 		public int getX() {return x;}
+		public int getSize() {return size;}
 
 		public int getXSpeed() {return xSpeed;}
 		public int getYSpeed() {return ySpeed;}
