@@ -19,6 +19,7 @@ public class Paddle extends ObjetosJuego implements Movimiento {
         shape.rect(getX(), getY(), getWidth(), getHeight());
     }
 
+    // Método para mover el paddle.
     @Override
     public void mover() {
         if (Gdx.input.isKeyPressed(Input.Keys.LEFT)) {

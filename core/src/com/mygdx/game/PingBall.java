@@ -50,6 +50,8 @@ public class PingBall extends ObjetosJuego implements Movimiento {
 	        shape.setColor(color);
 	        shape.circle(x, y,width);
 	    }
+
+		// Método que actualiza la posición del PingBall.
 	    public void update() {
 	    	if (estaQuieto) return;
 	        x += xSpeed;
@@ -62,7 +64,7 @@ public class PingBall extends ObjetosJuego implements Movimiento {
 	        }
 	    }
 
-
+		// Método que verifica si el PingBall colisiona con un paddle.
 	    public void checkCollision(Paddle paddle) {
 	        if(collidesWith(paddle)){
 	            color = Color.GREEN;
@@ -72,12 +74,16 @@ public class PingBall extends ObjetosJuego implements Movimiento {
 			}
 
 	    }
+
+		// Método que devuelve true si el PingBall colisiona con un paddle.
 	    private boolean collidesWith(Paddle pp) {
 
 	    	boolean intersectaX = (pp.getX() + pp.getWidth() >= x-width) && (pp.getX() <= x+width);
 	        boolean intersectaY = (pp.getY() + pp.getHeight() >= y-width) && (pp.getY() <= y+width);
 	    	return intersectaX && intersectaY;
 	    }
+
+		// Método que verifica si el PingBall colisiona con un bloque.
 	    public void checkCollision(Block block) {
 	        if(collidesWith(block)){
 
@@ -88,6 +94,8 @@ public class PingBall extends ObjetosJuego implements Movimiento {
 				color = Color.WHITE;
 			}
 	    }
+
+		// Método que devuelve true si el PingBall colisiona con un bloque.
 	    private boolean collidesWith(Block bb) {
 
 	    	boolean intersectaX = (bb.x + bb.width >= x-width) && (bb.x <= x+width);

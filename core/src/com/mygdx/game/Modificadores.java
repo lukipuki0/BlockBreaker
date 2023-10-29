@@ -41,7 +41,7 @@ public abstract class Modificadores implements Movimiento {
     public abstract void apply();
 
 
-    // Método para detectar colisiones con el padd.
+    // Método para detectar colisiones con el paddle.
     public boolean collidesWith(Paddle paddle) {
         return x < paddle.getX() + paddle.getWidth() &&
                 x + width > paddle.getX() &&

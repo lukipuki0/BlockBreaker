@@ -25,6 +25,7 @@ public class Block extends ObjetosJuego {
         shape.rect(getX(), getY(), getWidth(), getHeight());
     }
 
+    // Método que selecciona un modificador aleatorio y lo devuelve al romper el bloque.
     public Modificadores dropModifier() {
         // Usamos una probabilidad del X% de soltar un modificador.
         if (Math.random() < 1) {

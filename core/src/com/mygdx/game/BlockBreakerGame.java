@@ -158,7 +158,7 @@ public class BlockBreakerGame extends ApplicationAdapter {
 				}
 			}
 
-
+			// Verificar colisiones con el paddle.
 			((PingBall)ball).checkCollision((Paddle)pad);
 	        ball.draw(shape);
 	        
