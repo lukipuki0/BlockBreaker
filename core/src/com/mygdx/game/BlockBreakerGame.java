@@ -32,6 +32,8 @@ public class BlockBreakerGame extends ApplicationAdapter {
 
 	public Paddle getPad() {return (Paddle) pad;}
 
+	public PingBall getBall() {return (PingBall) ball;}
+
 	public ArrayList<PingBall> getBallList() {return ballList;}
 	public void setBallList(ArrayList ballList) {this.ballList = ballList;}
     
@@ -101,6 +103,7 @@ public class BlockBreakerGame extends ApplicationAdapter {
 	        if (vidas<=0) {
 	        	vidas = 3;
 	        	nivel = 1;
+				puntaje = 0;
 	        	crearBloques(2+nivel);
 	        	//ball = new PingBall(pad.getX()+pad.getWidth()/2-5, pad.getY()+pad.getHeight()+11, 10, 5, 7, true);	        	
 	        }

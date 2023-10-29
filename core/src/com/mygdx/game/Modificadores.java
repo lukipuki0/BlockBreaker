@@ -3,7 +3,7 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 
 public abstract class Modificadores implements Movimiento {
     protected int x, y, width, height;  // Posición del modificador en pantalla y Dimensiones del modificador.
-    protected int speedY; // Velocidad vertical del modificador (caída).
+    protected float speedY; // Velocidad vertical del modificador (caída).
     protected BlockBreakerGame game;
     protected boolean isBuff;
     public Modificadores(BlockBreakerGame game,int x, int y) {
