@@ -33,7 +33,11 @@ public abstract class Modificadores implements Movimiento {
     public void mover() {
         y -= speedY;
     }
-
+    public final void applyEffect() {
+        if (collidesWith(game.getPad())) {
+            apply();
+        }
+    }
     // Método para dibujar el modificador en pantalla.
     public abstract void draw(ShapeRenderer shape);
 
