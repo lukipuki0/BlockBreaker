@@ -15,6 +15,8 @@ import com.badlogic.gdx.graphics.Color;
 
 
 public class BlockBreakerGame extends ApplicationAdapter {
+
+	private static BlockBreakerGame instance;
     private OrthographicCamera camera;
 	private SpriteBatch batch;	   
 	private BitmapFont font;
@@ -34,7 +36,22 @@ public class BlockBreakerGame extends ApplicationAdapter {
 
 	public ArrayList<PingBall> getBallList() {return ballList;}
 	public void setBallList(ArrayList ballList) {this.ballList = ballList;}
-    
+	private BlockBreakerGame() {
+		// Inicialización de la instancia (si es necesario)
+	}
+
+	// Método estático para obtener la instancia
+	public static BlockBreakerGame getInstance() {
+		if (instance == null) {
+			// Sincronización para soportar entornos multi-hilo
+			synchronized (BlockBreakerGame.class) {
+				if (instance == null) {
+					instance = new BlockBreakerGame();
+				}
+			}
+		}
+		return instance;
+	}
 		@Override
 		public void create () {	
 			camera = new OrthographicCamera();
