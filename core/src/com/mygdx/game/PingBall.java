@@ -6,11 +6,12 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 
 public class PingBall extends ObjetosJuego implements Movimiento {
 
-	    private int xSpeed, ySpeed, size;
+		private int size;
+	    private double xSpeed, ySpeed;
 	    private Color color = Color.WHITE;
 	    private boolean estaQuieto;
 	    
-	    public PingBall(int x, int y, int size, int xSpeed, int ySpeed, boolean iniciaQuieto) {
+	    public PingBall(int x, int y, int size, double xSpeed, double ySpeed, boolean iniciaQuieto) {
 	        super(x, y, size, size);
 			this.size = size;
 	        this.xSpeed = xSpeed;
@@ -34,16 +35,23 @@ public class PingBall extends ObjetosJuego implements Movimiento {
 	    	this.x = x;
 	        this.y = y;
 	    }
+
+		public void setXSpeed(double xSpeed) {this.xSpeed = xSpeed;}
+
+		public void setYSpeed(double ySpeed) {this.ySpeed = ySpeed;}
+
 	    public int getY() {return y;}
 		public int getX() {return x;}
 		public int getSize() {return size;}
 
-		public int getXSpeed() {return xSpeed;}
-		public int getYSpeed() {return ySpeed;}
+		public double getXSpeed() {return xSpeed;}
+		public double getYSpeed() {return ySpeed;}
 	    public void draw(ShapeRenderer shape){
 	        shape.setColor(color);
 	        shape.circle(x, y,width);
 	    }
+
+		// Método que actualiza la posición del PingBall.
 	    public void update() {
 	    	if (estaQuieto) return;
 	        x += xSpeed;
@@ -56,7 +64,7 @@ public class PingBall extends ObjetosJuego implements Movimiento {
 	        }
 	    }
 
-
+		// Método que verifica si el PingBall colisiona con un paddle.
 	    public void checkCollision(Paddle paddle) {
 	        if(collidesWith(paddle)){
 	            color = Color.GREEN;
@@ -66,12 +74,16 @@ public class PingBall extends ObjetosJuego implements Movimiento {
 			}
 
 	    }
+
+		// Método que devuelve true si el PingBall colisiona con un paddle.
 	    private boolean collidesWith(Paddle pp) {
 
 	    	boolean intersectaX = (pp.getX() + pp.getWidth() >= x-width) && (pp.getX() <= x+width);
 	        boolean intersectaY = (pp.getY() + pp.getHeight() >= y-width) && (pp.getY() <= y+width);
 	    	return intersectaX && intersectaY;
 	    }
+
+		// Método que verifica si el PingBall colisiona con un bloque.
 	    public void checkCollision(Block block) {
 	        if(collidesWith(block)){
 
@@ -82,6 +94,8 @@ public class PingBall extends ObjetosJuego implements Movimiento {
 				color = Color.WHITE;
 			}
 	    }
+
+		// Método que devuelve true si el PingBall colisiona con un bloque.
 	    private boolean collidesWith(Block bb) {
 
 	    	boolean intersectaX = (bb.x + bb.width >= x-width) && (bb.x <= x+width);

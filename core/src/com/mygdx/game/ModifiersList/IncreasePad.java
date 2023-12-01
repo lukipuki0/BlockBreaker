@@ -18,7 +18,7 @@ public class IncreasePad extends Modificadores {
     }
     @Override
     public void apply() {
-        Paddle paddle = game.getPad();  // Suponiendo que tienes un método para obtener el Paddle.
-        paddle.setWidth((paddle.getWidth() + 10));  // Cambia el tamaño del Paddle.
+        Paddle paddle = game.getPad();
+        paddle.setWidth((paddle.getWidth() + 10));
     }
 }

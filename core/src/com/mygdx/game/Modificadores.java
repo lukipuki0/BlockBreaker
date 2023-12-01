@@ -1,9 +1,9 @@
 package com.mygdx.game;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 
-public abstract class Modificadores {
+public abstract class Modificadores implements Movimiento {
     protected int x, y, width, height;  // Posición del modificador en pantalla y Dimensiones del modificador.
-    protected int speedY; // Velocidad vertical del modificador (caída).
+    protected float speedY; // Velocidad vertical del modificador (caída).
     protected BlockBreakerGame game;
     protected boolean isBuff;
     public Modificadores(BlockBreakerGame game,int x, int y) {
@@ -30,10 +30,14 @@ public abstract class Modificadores {
     }
 
     // Método para actualizar la posición del modificador mientras cae.
-    public void update() {
+    public void mover() {
         y -= speedY;
     }
-
+    public final void applyEffect() {
+        if (collidesWith(game.getPad())) {
+            apply();
+        }
+    }
     // Método para dibujar el modificador en pantalla.
     public abstract void draw(ShapeRenderer shape);
 
@@ -41,12 +45,12 @@ public abstract class Modificadores {
     public abstract void apply();
 
 
-    // Método para detectar colisiones con el padd.
+    // Método para detectar colisiones con el paddle.
     public boolean collidesWith(Paddle paddle) {
-        if(x > paddle.getX() && x < paddle.getX() + paddle.getWidth() &&
-                y > paddle.getY() && y < paddle.getY() + paddle.getHeight()) {
-            return true;
-        }
-        return false;
+        return x < paddle.getX() + paddle.getWidth() &&
+                x + width > paddle.getX() &&
+                y < paddle.getY() + paddle.getHeight() &&
+                y + height > paddle.getY();
     }
+
 }

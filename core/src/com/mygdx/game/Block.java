@@ -5,10 +5,7 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import java.util.Random;
 
 import com.badlogic.gdx.graphics.Color;
-import com.mygdx.game.ModifiersList.ExtraBall;
-import com.mygdx.game.ModifiersList.ExtraLife;
-import com.mygdx.game.ModifiersList.IncreasePad;
-import com.mygdx.game.ModifiersList.DecreasePad;
+import com.mygdx.game.ModifiersList.*;
 
 public class Block extends ObjetosJuego {
     Color cc;
@@ -28,15 +25,16 @@ public class Block extends ObjetosJuego {
         shape.rect(getX(), getY(), getWidth(), getHeight());
     }
 
+    // Método que selecciona un modificador aleatorio y lo devuelve al romper el bloque.
     public Modificadores dropModifier() {
         // Usamos una probabilidad del X% de soltar un modificador.
-        if (Math.random() < 1) {
+        if (Math.random() < 0.5) {
 
             switch ((int) (Math.random() * 4)) {
                 case 0:
-                    return new ExtraLife(game,x + width / 2, y);  // Soltar desde el centro del bloque.
+                    return new ExtraLife(game,x + width / 2, y);
                 case 1:
-                    return new ExtraBall(game,x + width / 2, y);  // Soltar desde el centro del bloque.
+                    return new IncreaseBallSpeed(game,x + width / 2, y, 1.20);
                 case 2:
                     if(game.getPad().getWidth()>50) {
                         return new DecreasePad(game, x + width / 2, y);
